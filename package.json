@@ -1,0 +1,17 @@
+{
+  "name": "debug-symbols",
+  "version": "1.0.0",
+  "description": "Combines the popular debug module and log-symbols to create colorized debug logs with matching symbols",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["log","debug", "levels", "error", "warn", "success", "fail", "symbols"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "debug": "^4.3.3",
+    "log-symbols": "^4.1.0"
+  }
+}
