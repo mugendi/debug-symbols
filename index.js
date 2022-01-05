@@ -30,34 +30,47 @@ const logLevels = {
 class Log {
 	#debug;
 
-	constructor(name) {
-		this.#debug = Debug(name);
+	constructor(namespace) {
+		if (typeof namespace !== 'string')
+			throw new Error(
+				'You must initialize with a valid (string) namespace'
+			);
+
+		this.#debug = Debug(namespace);
 
 		for (let level in logLevels) {
 			this[level] = this.#log.bind(this, [level]);
 		}
 
-		return;
+		this.log =  this.#debug
 	}
 
 	#log() {
-		let args = Array.from(arguments);
-		let chalkFName = args.shift();
-
-		let chalkF = logLevels[chalkFName];
+		let args = Array.from(arguments),
+			levelName = args.shift(),
+			level = logLevels[levelName];
 
 		// colorize
-		args = args.map(chalkF.f);
-
-		if (chalkF.symbol) {
-			args.unshift(logSymbols[chalkF.symbol]);
+		for (let i in args) {
+			args[i] = level.f(args[i]);
 		}
+
+		if (level.symbol) {
+			args.unshift(logSymbols[level.symbol]);
+		}
+
 		this.#debug(...args);
+	}
+
+	extend(name) {
+		if (typeof name !== 'string')
+			throw new Error('You must pass a string: extend(name <string>)');
+
+		this.#debug = this.#debug.extend(name);
 	}
 }
 
-/*
 
-*/
+
 
 module.exports = (name) => new Log(name);
