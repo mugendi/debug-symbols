@@ -30,4 +30,4 @@ logger.success('success');
 
 This will log something like this:
 
-![](https://repository-images.githubusercontent.com/444926760/42858ab5-5af8-4844-8bfd-87169c81bdb6)
+![](https://repository-images.githubusercontent.com/444926760/eed1683c-11fd-4eef-b88d-e71179d6ac63)

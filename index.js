@@ -42,7 +42,7 @@ class Log {
 			this[level] = this.#log.bind(this, [level]);
 		}
 
-		this.log =  this.#debug
+		
 	}
 
 	#log() {
@@ -61,6 +61,10 @@ class Log {
 
 		this.#debug(...args);
 	}
+
+    log(){
+       this.#debug(...arguments)
+    }
 
 	extend(name) {
 		if (typeof name !== 'string')

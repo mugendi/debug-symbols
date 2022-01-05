@@ -1,17 +1,35 @@
 {
   "name": "debug-symbols",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Combines the popular debug module and log-symbols to create colorized debug logs with matching symbols",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["log","debug", "levels", "error", "warn", "success", "fail", "symbols"],
+  "keywords": [
+    "log",
+    "debug",
+    "levels",
+    "error",
+    "warn",
+    "success",
+    "fail",
+    "symbols"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.2",
     "debug": "^4.3.3",
     "log-symbols": "^4.1.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mugendi/debug-symbols.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mugendi/debug-symbols/issues"
+  },
+  "homepage": "https://github.com/mugendi/debug-symbols#readme"
 }
