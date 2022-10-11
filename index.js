@@ -12,69 +12,68 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const Debug = require('debug'),
-	chalk = require('chalk'),
-	logSymbols = require('log-symbols');
+const Debug = require("debug"),
+  chalk = require("chalk"),
+  logSymbols = require("log-symbols");
 
 const logLevels = {
-	debug: { f: chalk.white },
-	info: { f: chalk.blueBright, symbol: 'info' },
-	warn: { f: chalk.yellowBright, symbol: 'warning' },
-	error: { f: chalk.red.bold, symbol: 'error' },
-	fatal: { f: chalk.red.bold, symbol: 'error' },
+  debug: { f: chalk.white },
+  info: { f: chalk.blueBright, symbol: "info" },
+  warn: { f: chalk.yellowBright, symbol: "warning" },
+  error: { f: chalk.red.bold, symbol: "error" },
+  fatal: { f: chalk.red.bold, symbol: "error" },
 
-	fail: { f: chalk.red, symbol: 'error' },
-	success: { f: chalk.green, symbol: 'success' },
+  fail: { f: chalk.red, symbol: "error" },
+  success: { f: chalk.green, symbol: "success" },
 };
 
 class Log {
-	#debug;
+  #debug;
 
-	constructor(namespace) {
-		if (typeof namespace !== 'string')
-			throw new Error(
-				'You must initialize with a valid (string) namespace'
-			);
+  constructor(namespace) {
+    if (typeof namespace !== "string")
+      throw new Error("You must initialize with a valid (string) namespace");
 
-		this.#debug = Debug(namespace);
-
-		for (let level in logLevels) {
-			this[level] = this.#log.bind(this, [level]);
-		}
-
-		
-	}
-
-	#log() {
-		let args = Array.from(arguments),
-			levelName = args.shift(),
-			level = logLevels[levelName];
-
-		// colorize
-		for (let i in args) {
-			args[i] = level.f(args[i]);
-		}
-
-		if (level.symbol) {
-			args.unshift(logSymbols[level.symbol]);
-		}
-
-		this.#debug(...args);
-	}
-
-    log(){
-       this.#debug(...arguments)
+    // add default namespace if set using process.env.DEBUG_NS
+    if (process.env.DEBUG_NS) {
+      namespace = Array.from(new Set([process.env.DEBUG_NS].concat(namespace.split(":")))).join(
+        ":"
+      );
     }
 
-	extend(name) {
-		if (typeof name !== 'string')
-			throw new Error('You must pass a string: extend(name <string>)');
+    this.#debug = Debug(namespace);
 
-		this.#debug = this.#debug.extend(name);
-	}
+    for (let level in logLevels) {
+      this[level] = this.#log.bind(this, [level]);
+    }
+  }
+
+  #log() {
+    let args = Array.from(arguments),
+      levelName = args.shift(),
+      level = logLevels[levelName];
+
+    // colorize
+    for (let i in args) {
+      args[i] = level.f(args[i]);
+    }
+
+    if (level.symbol) {
+      args.unshift(logSymbols[level.symbol]);
+    }
+
+    this.#debug(...args);
+  }
+
+  log() {
+    this.#debug(...arguments);
+  }
+
+  extend(name) {
+    if (typeof name !== "string") throw new Error("You must pass a string: extend(name <string>)");
+
+    this.#debug = this.#debug.extend(name);
+  }
 }
-
-
-
 
 module.exports = (name) => new Log(name);
