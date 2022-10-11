@@ -1,6 +1,6 @@
 {
   "name": "debug-symbols",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Combines the popular debug module and log-symbols to create colorized debug logs with matching symbols",
   "main": "index.js",
   "scripts": {
